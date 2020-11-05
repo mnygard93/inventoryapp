@@ -1,13 +1,13 @@
 package ax.ha.laboration2.inventory.model;
 
 
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.UUID;
 
-@AllArgsConstructor
 @Getter
 public class Product {
 
@@ -18,4 +18,14 @@ public class Product {
     private final Date expirationDate;
 
     private final Integer amount;
+
+    public Product(@JsonProperty("id") final UUID id,
+                   @JsonProperty("description")final String description,
+                   @DateTimeFormat(pattern = "yyyy-MM-dd") @JsonProperty("expiration") final Date expirationDate,
+                   @JsonProperty("amount") final Integer amount) {
+        this.id = id;
+        this.description = description;
+        this.expirationDate = expirationDate;
+        this.amount = amount;
+    }
 }
