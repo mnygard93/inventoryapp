@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ax.ha.laboration2.inventory.repository.ProductMapper">
+
+    <cache flushInterval="20000" readOnly="true" eviction="FIFO"/>
+
+    <resultMap id="productResultMap" type="ax.ha.laboration2.inventory.model.Product">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="expiration" property="expirationDate" jdbcType="date"/>
+        <result column="amount" property="amount" jdbcType="INTEGER"/>
+        <association property="location" />
+    </resultMap>
+</mapper>

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1")
+@RequestMapping("api/v1/")
 public class LocationController {
 
     private final LocationService locationService;
@@ -19,22 +19,22 @@ public class LocationController {
         this.locationService = locationService;
     }
 
-    @RequestMapping(value = "/location", method = RequestMethod.GET)
+    @RequestMapping(value = "location", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<List<Location>> getLocations() {
         return ResponseEntity.ok(locationService.getLocations());
     }
 
-    @RequestMapping(value = "/location/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "location/{id}", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<Location> getLocation(@PathVariable final Integer id) {
         return ResponseEntity.ok(locationService.getLocation(id));
     }
 
-    @RequestMapping(value = "/location", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(value = "location", method = RequestMethod.POST, consumes = "application/json")
     public void addLocation(@RequestBody final Location location) {
         locationService.addLocation(location);
     }
 
-    @RequestMapping(value = "/location/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "location/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteLocation(@PathVariable final Integer id) {
         locationService.deleteLocation(id);
         return ResponseEntity.noContent().build();
