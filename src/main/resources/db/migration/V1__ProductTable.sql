@@ -1,6 +1,0 @@
-CREATE TABLE IF NOT EXISTS PRODUCT (
-    id UUID NOT NULL PRIMARY KEY,
-    description VARCHAR(50) NOT NULL,
-    expiration DATE,
-    amount INTEGER
-)

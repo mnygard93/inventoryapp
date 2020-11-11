@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE mapper
+                PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ax.ha.laboration2.inventory.repository.LocationMapper">
+
+<cache flushInterval="20000" readOnly="true" eviction="FIFO"/>
+
+    <resultMap id="locationResultMap" type="ax.ha.laboration2.inventory.model.Location">
+        <id column="location_id" property="locationId" jdbcType="INTEGER"/>
+        <result column="description" property="locationDescription" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getLocations" resultMap="locationResultMap">
+        SELECT location_id, description FROM location
+    </select>
+
+    <select id="getLocation" resultMap="locationResultMap" parameterType="java.lang.Integer"
+            resultType="ax.ha.laboration2.inventory.model.Location">
+        SELECT * FROM location where location_id = #{id}
+    </select>
+
+    <insert id="saveLocation" parameterType="ax.ha.laboration2.inventory.model.Location" keyColumn="location_id" keyProperty="locationId" useGeneratedKeys="true">
+        INSERT INTO location(description)
+        VALUES (#{locationDescription})
+    </insert>
+
+    <delete id="deleteLocation" parameterType="java.lang.Integer">
+        DELETE FROM location
+        WHERE location_id = #{id}
+    </delete>
+
+</mapper>
