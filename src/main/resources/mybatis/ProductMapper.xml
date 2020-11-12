@@ -10,8 +10,34 @@
     <resultMap id="productResultMap" type="ax.ha.laboration2.inventory.model.Product">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="description" property="description" jdbcType="VARCHAR"/>
-        <result column="expiration" property="expirationDate" jdbcType="date"/>
+        <result column="expiration" property="expirationDate" jdbcType="DATE"/>
         <result column="amount" property="amount" jdbcType="INTEGER"/>
-        <association property="location" />
+        <result column="location" property="location" jdbcType="INTEGER"/>
     </resultMap>
+
+
+    <select id="getProducts" resultMap="productResultMap">
+        SELECT * FROM product
+    </select>
+
+    <select id="getProduct" resultMap="productResultMap">
+        SELECT * FROM product
+        WHERE id = #{id}
+    </select>
+
+    <select id="getProductsInLocation" resultMap="productResultMap" parameterType="java.lang.Integer">
+        SELECT * FROM product
+        WHERE location = #{locationId}
+    </select>
+
+    <insert id="saveProduct" parameterType="ax.ha.laboration2.inventory.model.Product" keyProperty="id" keyColumn="id" useGeneratedKeys="true">
+        INSERT INTO product(description, expiration, amount, location)
+        VALUES (#{description}, #{expirationDate}, #{amount}, #{location})
+    </insert>
+
+    <delete id="deleteProduct" parameterType="java.lang.Integer">
+        DELETE FROM product
+        WHERE id = #{id}
+    </delete>
+
 </mapper>

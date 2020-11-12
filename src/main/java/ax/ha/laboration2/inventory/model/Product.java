@@ -20,6 +20,6 @@ public class Product {
 
     private  Integer amount;
 
-    private  Location location;
+    private  Integer location;
 
 }
