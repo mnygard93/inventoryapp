@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @MapperScan("ax.ha.laboration2.inventory.repository")
-public class AppConfig {
+public class DataSourceConfig {
 
     @Bean
     @ConfigurationProperties("app.datasource")

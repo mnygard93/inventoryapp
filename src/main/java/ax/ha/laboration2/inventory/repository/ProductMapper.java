@@ -17,4 +17,8 @@ public interface ProductMapper {
     void saveProduct(Product product);
 
     void deleteProduct(Integer id);
+
+    void updateProduct(Product product);
+
+    List<Product> getProductsWhereAmountIsZero();
 }

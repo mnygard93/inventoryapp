@@ -22,22 +22,32 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getProduct(Integer id) {
+    public Product getProduct(final Integer id) {
         return productRepository.getProduct(id);
     }
 
     @Override
-    public List<Product> getProductsInLocation(Integer locationId) {
+    public List<Product> getProductsInLocation(final Integer locationId) {
         return productRepository.getProductsInLocation(locationId);
     }
 
     @Override
-    public void addProduct(Product product) {
+    public List<Product> getProductsWhereAmountIsZero() {
+        return productRepository.getProductsWhereAmountIsZero();
+    }
+
+    @Override
+    public void addProduct(final Product product) {
         productRepository.saveProduct(product);
     }
 
     @Override
-    public void deleteProduct(Integer id) {
+    public void deleteProduct(final Integer id) {
         productRepository.deleteProduct(id);
+    }
+
+    @Override
+    public void updateProduct(final Product product) {
+        productRepository.updateProduct(product);
     }
 }

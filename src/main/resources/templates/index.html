@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>InventoryApp</title>
+</head>
+<body>
+<div class="productList" th:unless="${#lists.isEmpty(allProducts)}">
+<h2 th:text="#{title.allProductsList}"></h2>
+    <table>
+        <thead>
+        <tr>
+            <th th:text="#{products.id}"></th>
+            <th th:text="#{products.description}"></th>
+            <th th:text="#{products.expirationDate}"></th>
+            <th th:text="#{products.amount}"></th>
+            <th th:text="#{products.location}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${allProducts}">
+            <div th:if="${product.getAmount() > 0}"class="productSummary">
+                <td th:text="${product.getId()}"></td>
+                <td th:text="${product.getDescription()}"></td>
+                <td th:text="${#dates.format(product.getExpirationDate(), 'dd-MM-yyyy')}"></td>
+                <td th:text="${product.getAmount()}"></td>
+                <td th:text="${product.getLocation()}"></td>
+            </div>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="amountZeroProductList" th:unless="${#lists.isEmpty(outOfProducts)}">
+    <h2 th:text="#{title.emptyProductsList}"></h2>
+    <table>
+        <thead>
+        <tr>
+            <th th:text="#{products.id}"></th>
+            <th th:text="#{products.description}"></th>
+            <th th:text="#{products.expirationDate}"></th>
+            <th th:text="#{products.amount}"></th>
+            <th th:text="#{products.location}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="emptyProduct : ${outOfProducts} ">
+            <td th:text="${emptyProduct.getId()}"></td>
+            <td th:text="${emptyProduct.getDescription()}"></td>
+            <td th:text="${#dates.format(emptyProduct.getExpirationDate(), 'dd-MM-yyyy')}"></td>
+            <td th:text="${emptyProduct.getAmount()}"></td>
+            <td th:text="${emptyProduct.getLocation()}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+<div class="addProductForm">
+    <h2 th:text="#{title.addForm}"></h2>
+        <form action="#" th:action="@{/inventory}" th:object="${product}" method="post">
+
+            <label th:text="#{input.description}"></label>
+            <input type="text" th:field="*{description}"/><br/>
+
+            <label th:text="#{input.expiration}"></label>
+            <input type="date" th:field="*{expirationDate}" /><br/>
+
+            <label th:text="#{input.amount}"></label>
+            <input type="text" th:field="*{amount}"/><br/>
+
+            <label th:text="#{input.location}"></label>
+            <input type="text" th:field="*{location}"/><br/>
+
+            <input type="submit" name="save"/>
+        </form>
+</div>
+<div class="updateProductForm">
+    <h2 th:text="#{title.updateForm}"></h2>
+    <form action="#" th:action="@{/update}" th:object="${product}" method="post">
+
+        <label th:text="#{input.id}"></label>
+        <input type="text" th:field="*{id}"/><br/>
+
+        <label th:text="#{input.description}"></label>
+        <input type="text" th:field="*{description}"/><br/>
+
+        <label th:text="#{input.expiration}"></label>
+        <input type="date" th:field="*{expirationDate}" /><br/>
+
+        <label th:text="#{input.amount}"></label>
+        <input type="text" th:field="*{amount}"/><br/>
+
+        <label th:text="#{input.location}"></label>
+        <input type="text" th:field="*{location}"/><br/>
+
+        <input type="submit" name="update"/>
+    </form>
+</div>
+</body>
+</html>

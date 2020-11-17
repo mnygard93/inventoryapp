@@ -12,7 +12,12 @@ public interface ProductService {
 
     List<Product> getProductsInLocation(Integer locationId);
 
+    List<Product> getProductsWhereAmountIsZero();
+
     void addProduct(Product product);
 
     void deleteProduct(Integer id);
+
+    void updateProduct(Product product);
+
 }
