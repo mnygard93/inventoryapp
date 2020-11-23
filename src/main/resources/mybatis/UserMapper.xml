@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ax.ha.laboration2.inventory.repository.UserMapper">
+
+    <cache flushInterval="20000" readOnly="true" eviction="FIFO"/>
+
+    <resultMap id="userResultMap" type="ax.ha.laboration2.inventory.model.User">
+        <id column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="username" property="userName" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="active" property="active" javaType="java.lang.Boolean" typeHandler="org.apache.ibatis.type.BooleanTypeHandler"/>
+        <result column="roles" property="roles" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="findByUserName" resultMap="userResultMap" parameterType="java.lang.String">
+        SELECT * FROM site_user
+        WHERE username = #{userName}
+    </select>
+
+
+</mapper>
