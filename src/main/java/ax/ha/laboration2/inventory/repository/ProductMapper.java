@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper
 public interface ProductMapper {
 
-    List<Product> getProducts();
+    List<Product> getProducts(Integer userId);
 
     Product getProduct(Integer id);
 
@@ -20,5 +20,5 @@ public interface ProductMapper {
 
     void updateProduct(Product product);
 
-    List<Product> getProductsWhereAmountIsZero();
+    List<Product> getProductsWhereAmountIsZero(Integer userId);
 }

@@ -9,6 +9,7 @@
 
     <resultMap id="productResultMap" type="ax.ha.laboration2.inventory.model.Product">
         <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
         <result column="description" property="description" jdbcType="VARCHAR"/>
         <result column="expiration" property="expirationDate" jdbcType="DATE"/>
         <result column="amount" property="amount" jdbcType="INTEGER"/>
@@ -16,8 +17,8 @@
     </resultMap>
 
 
-    <select id="getProducts" resultMap="productResultMap">
-        SELECT * FROM product
+    <select id="getProducts" resultMap="productResultMap" parameterType="java.lang.Integer">
+        SELECT * FROM product WHERE user_id = #{userId}
     </select>
 
     <select id="getProduct" resultMap="productResultMap">
@@ -30,14 +31,14 @@
         WHERE location = #{locationId}
     </select>
 
-    <select id="getProductsWhereAmountIsZero" resultMap="productResultMap">
+    <select id="getProductsWhereAmountIsZero" resultMap="productResultMap" parameterType="java.lang.Integer">
         SELECT * FROM product
-        WHERE amount = 0
+        WHERE amount = 0 AND user_id = #{userId}
     </select>
 
     <insert id="saveProduct" parameterType="ax.ha.laboration2.inventory.model.Product" keyProperty="id" keyColumn="id" useGeneratedKeys="true">
-        INSERT INTO product(description, expiration, amount, location)
-        VALUES (#{description}, #{expirationDate}, #{amount}, #{location})
+        INSERT INTO product(user_id, description, expiration, amount, location)
+        VALUES ( #{userId}, #{description}, #{expirationDate}, #{amount}, #{location})
     </insert>
 
     <delete id="deleteProduct" parameterType="java.lang.Integer">
@@ -46,7 +47,8 @@
     </delete>
     
     <update id="updateProduct" parameterType="ax.ha.laboration2.inventory.model.Product">
-        UPDATE product SET description = #{description},
+        UPDATE product SET user_id = #{userId},
+                           description = #{description},
                            expiration = #{expirationDate},
                            amount = #{amount},
                            location = #{location}

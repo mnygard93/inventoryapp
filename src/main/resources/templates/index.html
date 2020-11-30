@@ -1,12 +1,39 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:th="http://www.thymeleaf.org">
+                xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
     <title>InventoryApp</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
-<div class="productList" th:unless="${#lists.isEmpty(allProducts)}">
+
+<!--Header-->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                    aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span> <span
+                    class="icon-bar"></span> <span class="icon-bar"></span> <span
+                    class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:href="@{/}">Inventory Application</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}" th:text="#{title.logout}"></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="productList" th:unless="${#lists.isEmpty(products)}">
 <h2 th:text="#{title.allProductsList}"></h2>
     <table>
         <thead>
@@ -19,8 +46,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="product : ${allProducts}">
-            <div th:if="${product.getAmount() > 0}"class="productSummary">
+        <tr th:each="product : ${products}">
+            <div th:if="${product.getAmount() > 0}" class="productSummary">
                 <td th:text="${product.getId()}"></td>
                 <td th:text="${product.getDescription()}"></td>
                 <td th:text="${#dates.format(product.getExpirationDate(), 'dd-MM-yyyy')}"></td>
@@ -31,7 +58,7 @@
         </tbody>
     </table>
 </div>
-<div class="amountZeroProductList" th:unless="${#lists.isEmpty(outOfProducts)}">
+<div class="amountZeroProductList" th:unless="${#lists.isEmpty(productsOutOfStock)}">
     <h2 th:text="#{title.emptyProductsList}"></h2>
     <table>
         <thead>
@@ -44,7 +71,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="emptyProduct : ${outOfProducts} ">
+        <tr th:each="emptyProduct : ${productsOutOfStock} ">
             <td th:text="${emptyProduct.getId()}"></td>
             <td th:text="${emptyProduct.getDescription()}"></td>
             <td th:text="${#dates.format(emptyProduct.getExpirationDate(), 'dd-MM-yyyy')}"></td>

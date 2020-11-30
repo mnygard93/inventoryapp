@@ -9,4 +9,8 @@ import java.util.Optional;
 public interface UserMapper {
 
     Optional<User> findByUserName(String userName);
+
+    void saveUser(User user);
+
+    Integer getUserId(String userName);
 }

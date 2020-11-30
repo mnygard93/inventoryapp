@@ -8,7 +8,6 @@
         <package name="ax.ha.laboration2.inventory.model"/>
     </typeAliases>
     <mappers>
-        <mapper resource="mybatis/LocationMapper.xml"/>
         <mapper resource="mybatis/ProductMapper.xml"/>
         <mapper resource="mybatis/UserMapper.xml"/>
     </mappers>

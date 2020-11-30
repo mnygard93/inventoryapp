@@ -17,8 +17,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getProducts() {
-        return productRepository.getProducts();
+    public List<Product> getProducts(Integer userId) {
+        return productRepository.getProducts(userId);
     }
 
     @Override
@@ -32,8 +32,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getProductsWhereAmountIsZero() {
-        return productRepository.getProductsWhereAmountIsZero();
+    public List<Product> getProductsWhereAmountIsZero(Integer userId) {
+        return productRepository.getProductsWhereAmountIsZero(userId);
     }
 
     @Override

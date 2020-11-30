@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface ProductService {
 
-    List<Product> getProducts();
+    List<Product> getProducts(Integer userId);
 
     Product getProduct(Integer id);
 
     List<Product> getProductsInLocation(Integer locationId);
 
-    List<Product> getProductsWhereAmountIsZero();
+    List<Product> getProductsWhereAmountIsZero(Integer userId);
 
     void addProduct(Product product);
 

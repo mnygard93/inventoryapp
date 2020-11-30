@@ -17,6 +17,8 @@ public class Product {
 
     private Integer id;
 
+    private Integer userId;
+
     private  String description;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")

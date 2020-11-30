@@ -11,6 +11,7 @@
         <id column="user_id" property="userId" jdbcType="INTEGER"/>
         <result column="username" property="userName" jdbcType="VARCHAR"/>
         <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
         <result column="active" property="active" javaType="java.lang.Boolean" typeHandler="org.apache.ibatis.type.BooleanTypeHandler"/>
         <result column="roles" property="roles" jdbcType="VARCHAR"/>
     </resultMap>
@@ -18,6 +19,15 @@
     <select id="findByUserName" resultMap="userResultMap" parameterType="java.lang.String">
         SELECT * FROM site_user
         WHERE username = #{userName}
+    </select>
+    
+    <insert id="saveUser" parameterType="ax.ha.laboration2.inventory.model.User" keyProperty="userId" keyColumn="user_id" useGeneratedKeys="true">
+        INSERT INTO site_user(username, password, email, active, roles)
+        VALUES (#{userName}, #{password}, #{email}, #{active}, #{roles})
+    </insert>
+
+    <select id="getUserId" resultType="java.lang.Integer" parameterType="java.lang.String">
+        SELECT user_id FROM site_user WHERE username = #{userName}
     </select>
 
 
