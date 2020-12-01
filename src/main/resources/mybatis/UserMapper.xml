@@ -30,5 +30,8 @@
         SELECT user_id FROM site_user WHERE username = #{userName}
     </select>
 
+    <select id="getUserEmail" resultType="java.lang.String" parameterType="java.lang.Integer">
+        SELECT email FROM site_user WHERE user_id = #{userId}
+    </select>
 
 </mapper>

@@ -7,7 +7,6 @@ import ax.ha.laboration2.inventory.repository.UserMapper;
 import ax.ha.laboration2.inventory.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -50,5 +49,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public Integer getUserId(final String userName) {
         return userRepository.getUserId(userName);
+    }
+
+    @Override
+    public String getUserEmail(final Integer userId) {
+        return userRepository.getUserEmail(userId);
     }
 }

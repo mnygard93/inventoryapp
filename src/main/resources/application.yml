@@ -8,4 +8,16 @@ app:
 mybatis:
   config-location: classpath:mybatis-config.xml
 
-
+spring:
+  mail:
+    protocol: smtp
+    host: smtp.gmail.com
+    port: 587
+    username: hainventoryapp@gmail.com
+    password: fjqciujtksfemikp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true

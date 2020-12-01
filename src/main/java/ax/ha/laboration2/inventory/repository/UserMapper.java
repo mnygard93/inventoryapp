@@ -13,4 +13,6 @@ public interface UserMapper {
     void saveUser(User user);
 
     Integer getUserId(String userName);
+
+    String getUserEmail(Integer userId);
 }

@@ -8,4 +8,6 @@ public interface UserService extends UserDetailsService {
     void saveUser(UserRegistrationDto userRegistrationDto);
 
     Integer getUserId(String userName);
+
+    String getUserEmail(Integer userId);
 }
