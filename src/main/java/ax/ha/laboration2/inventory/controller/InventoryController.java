@@ -60,7 +60,7 @@ public class InventoryController {
         product.setUserId(userService.getUserId(authentication.getName()));
         productService.addProduct(product);
         model.clear();
-        return "redirect:/inventory";
+        return "redirect:/inventory?saveSuccess";
     }
 
     @PostMapping(value = "/update", params={"update"})
@@ -75,7 +75,7 @@ public class InventoryController {
         product.setUserId(userService.getUserId(authentication.getName()));
         productService.updateProduct(product);
         model.clear();
-        return "redirect:/inventory";
+        return "redirect:/inventory?updateSuccess";
     }
 
     private boolean inputHasErrors(BindingResult bindingResult) {

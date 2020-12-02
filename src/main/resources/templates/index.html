@@ -83,7 +83,7 @@
     <div class="carousel-inner">
 
         <!--Slide 1-->
-        <div class="carousel-item active">
+        <div class="carousel-item active" data-interval="5000">
             <div class="overlay-image" th:style="'background-image:url(' + @{/images/slide-1.jpg} + ');'"></div>
             <div class="container">
                 <h1 th:text="#{title.allProductsList}"></h1>
@@ -102,7 +102,8 @@
                             <div th:if="${product.getAmount() > 0}" class="productSummary">
                                 <th scope="row" th:text="${product.getId()}"></th>
                                 <td th:text="${product.getDescription()}"></td>
-                                <td th:text="${#dates.format(product.getExpirationDate(), 'dd-MM-yyyy')}"></td>
+                                <td th:if="${product.getExpirationDate() != null}" th:text="${#dates.format(product.getExpirationDate(), 'dd-MM-yyyy')}"></td>
+                                <td th:if="${product.getExpirationDate() == null}" th:text="#{title.empty}"></td>
                                 <td th:text="${product.getAmount()}"></td>
                                 <td th:text="${product.getLocation()}"></td>
                             </div>
@@ -113,7 +114,7 @@
         </div>
 
         <!--Slide 2-->
-        <div class="carousel-item">
+        <div class="carousel-item" data-interval="5000">
             <div class="overlay-image" th:style="'background-image:url(' + @{/images/slide-2.jpg} + ');'"></div>
             <div class="container">
                 <h1 th:text="#{title.emptyProductsList}"></h1>
@@ -131,7 +132,8 @@
                         <tr th:each="emptyProduct : ${productsOutOfStock} ">
                             <th scope="row" th:text="${emptyProduct.getId()}"></th>
                             <td th:text="${emptyProduct.getDescription()}"></td>
-                            <td th:text="${#dates.format(emptyProduct.getExpirationDate(), 'dd-MM-yyyy')}"></td>
+                            <td th:if="${product.getExpirationDate() != null}" th:text="${#dates.format(product.getExpirationDate(), 'dd-MM-yyyy')}"></td>
+                            <td th:if="${product.getExpirationDate() == null}" th:text="#{title.empty}"></td>
                             <td th:text="${emptyProduct.getAmount()}"></td>
                             <td th:text="${emptyProduct.getLocation()}"></td>
                         </tr>
@@ -152,9 +154,29 @@
     </a>
 </div>
 
+<!--Save product success message-->
+<div th:if="${param.saveSuccess}">
+    <div class="alert alert-success" role="alert">
+        <strong th:text="#{alert.saveSuccess}"></strong>
+        <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+
+<!--Update product success message-->
+<div th:if="${param.updateSuccess}">
+    <div class="alert alert-success" role="alert">
+        <strong th:text="#{alert.updateSuccess}"></strong>
+        <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+
 <!--Mail success message--->
 <div th:if="${param.mailSuccess}">
-    <div class="alert alert-success" role="alert" id="myAlert">
+    <div class="alert alert-success" role="alert">
         <strong th:text="#{alert.mailSuccess}"></strong>
         <button type="button" class="close" data-dismiss="alert">
             <span aria-hidden="true">&times;</span>
@@ -176,8 +198,8 @@
 <div class="card-deck">
 
     <!--Add Product Card-->
-    <div class="card border-dark mb-3">
-        <div class="card-body text-dark">
+    <div class="card border-light text-white bg-dark mb-3">
+        <div class="card-body text-white">
             <h4 class="card-title" th:text="#{title.addForm}"></h4>
             <form action="#" th:action="@{/inventory}" th:object="${product}" method="post">
                 <div class="form-group row">
@@ -206,7 +228,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-10">
-                        <button type="submit" class="btn btn-outline-dark" name="save">Add Product</button>
+                        <button type="submit" class="btn btn-outline-light" name="save">Add Product</button>
                     </div>
                 </div>
             </form>
@@ -214,8 +236,8 @@
     </div>
 
     <!--Update Product Card-->
-    <div class="card border-dark mb-3">
-        <div class="card-body text-dark">
+    <div class="card border-light text-white bg-dark mb-3">
+        <div class="card-body text-white">
             <h4 class="card-title" th:text="#{title.updateForm}"></h4>
             <form action="#" th:action="@{/update}" th:object="${product}" method="post">
                 <div class="form-group row">
@@ -250,7 +272,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-10">
-                        <button type="submit" class="btn btn-outline-dark" name="update">Update Product</button>
+                        <button type="submit" class="btn btn-outline-light" name="update">Update Product</button>
                     </div>
                 </div>
             </form>
@@ -264,7 +286,7 @@
 <script type = "text/javascript">
     $(function(){
         $(".close").click(function(){
-            $("#myAlert").alert('close');
+            $(".alert").alert('close');
         });
     });
 </script>
