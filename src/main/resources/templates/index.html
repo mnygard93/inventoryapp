@@ -11,23 +11,28 @@
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
           crossorigin="anonymous">
 </head>
-<body style="background-color: #343a40">
+<body>
 
 <style>
-    .carousel-item{
+    @import url(https://fonts.googleapis.com/css?family=Varela+Round);
+    body{
+        background-color: #343a40;
+        font-family: "Varela Round", sans-serif;
+    }
+    .carousel-item {
         height: 32rem;
         position: relative;
         background: #000;
         color:white;
     }
-    .container{
+    .container {
         position: absolute;
         bottom: 0;
         top: 0;
         left: 0;
         right: 0;
     }
-    .overlay-image{
+    .overlay-image {
         position: absolute;
         bottom: 0;
         top: 0;
@@ -37,19 +42,65 @@
         background-size: cover;
         opacity: 0.5;
     }
-    .table{
+    .table {
         color: whitesmoke;
         opacity: 0.9;
     }
-    .card-deck{
+    .card-deck {
         margin-top: 10px;
         margin-left: 10px;
         margin-right: 10px;
     }
+    .tableRows{
+        transition: all 150ms ease-in-out;
+    }
+    .tableRows:hover{
+        transform: scale(1.05);
+        cursor: pointer;
+    }
+    .card-body {
+        background: #1F2124;
+        color: #F6B352;
+        border: none;
+        box-shadow: 0 0 20px rgba(0,0,0,0.4);
+        border-radius: 5px;
+        font-size: 15px;
+    }
+    .form-control{
+        font-size: 15px;
+        background-color: lightgray;
+    }
+    .btn {
+        background: #F6B352;
+        color: white;
+        border-radius: 5px;
+        box-shadow: rgba(0,0,0,0.9);
+        transition: all 200ms ease-in-out;
+        text-decoration: none;
+
+    }
+    .btn:hover{
+        background: #F68657;
+        color:white;
+    }
+    .navbar{
+        background-color: #343a40;
+    }
+    .navbar-brand{
+        color: #F6B352;
+    }
+
+    a{
+        color: #F6B352;
+    }
+    a:hover{
+        color: whitesmoke;
+    }
+
 </style>
 
 <!--Navbar-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg">
     <a class="navbar-brand" href="#" th:text="#{title.applicationName}">Inventory Application</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,7 +110,7 @@
     <div class="collapse-navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#" th:href="@{/}" th:text="#{title.home}"><span class="sr-only">(current)</span></a>
+                <a  style="color: #F68657" class="nav-link" href="#" th:href="@{/}" th:text="#{title.home}"><span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item" sec:authorize="isAuthenticated()">
                 <a class="nav-link" href="#" th:href="@{/email}" th:text="#{title.email}"></a>
@@ -87,7 +138,7 @@
             <div class="overlay-image" th:style="'background-image:url(' + @{/images/slide-1.jpg} + ');'"></div>
             <div class="container">
                 <h1 th:text="#{title.allProductsList}"></h1>
-                <table class="table" th:unless="${#lists.isEmpty(products)}">
+                <table class="table" id="productsTable" th:unless="${#lists.isEmpty(products)}">
                     <thead>
                         <tr>
                             <th scope="col" th:text="#{products.id}"></th>
@@ -98,9 +149,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="product : ${products}">
+                        <tr class="tableRows" th:each="product : ${products}">
                             <div th:if="${product.getAmount() > 0}" class="productSummary">
-                                <th scope="row" th:text="${product.getId()}"></th>
+                                <td th:text="${product.getId()}"></td>
                                 <td th:text="${product.getDescription()}"></td>
                                 <td th:if="${product.getExpirationDate() != null}" th:text="${#dates.format(product.getExpirationDate(), 'dd-MM-yyyy')}"></td>
                                 <td th:if="${product.getExpirationDate() == null}" th:text="#{title.empty}"></td>
@@ -118,7 +169,7 @@
             <div class="overlay-image" th:style="'background-image:url(' + @{/images/slide-2.jpg} + ');'"></div>
             <div class="container">
                 <h1 th:text="#{title.emptyProductsList}"></h1>
-                <table class="table" th:unless="${#lists.isEmpty(productsOutOfStock)}">
+                <table class="table" id="outOfStockTable" th:unless="${#lists.isEmpty(productsOutOfStock)}">
                     <thead>
                         <tr>
                             <th scope="col" th:text="#{products.id}"></th>
@@ -129,8 +180,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="emptyProduct : ${productsOutOfStock} ">
-                            <th scope="row" th:text="${emptyProduct.getId()}"></th>
+                        <tr class="tableRows" th:each="emptyProduct : ${productsOutOfStock} ">
+                            <td th:text="${emptyProduct.getId()}"></td>
                             <td th:text="${emptyProduct.getDescription()}"></td>
                             <td th:if="${product.getExpirationDate() != null}" th:text="${#dates.format(product.getExpirationDate(), 'dd-MM-yyyy')}"></td>
                             <td th:if="${product.getExpirationDate() == null}" th:text="#{title.empty}"></td>
@@ -198,8 +249,8 @@
 <div class="card-deck">
 
     <!--Add Product Card-->
-    <div class="card border-light text-white bg-dark mb-3">
-        <div class="card-body text-white">
+    <div class="card border-dark">
+        <div class="card-body">
             <h4 class="card-title" th:text="#{title.addForm}"></h4>
             <form action="#" th:action="@{/inventory}" th:object="${product}" method="post">
                 <div class="form-group row">
@@ -228,7 +279,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-10">
-                        <button type="submit" class="btn btn-outline-light" name="save">Add Product</button>
+                        <button type="submit" class="btn" name="save">Add Product</button>
                     </div>
                 </div>
             </form>
@@ -236,8 +287,8 @@
     </div>
 
     <!--Update Product Card-->
-    <div class="card border-light text-white bg-dark mb-3">
-        <div class="card-body text-white">
+    <div class="card border-dark">
+        <div class="card-body">
             <h4 class="card-title" th:text="#{title.updateForm}"></h4>
             <form action="#" th:action="@{/update}" th:object="${product}" method="post">
                 <div class="form-group row">
@@ -272,7 +323,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-10">
-                        <button type="submit" class="btn btn-outline-light" name="update">Update Product</button>
+                        <button type="submit" class="btn" name="update">Update Product</button>
                     </div>
                 </div>
             </form>
@@ -283,10 +334,52 @@
 <!--Bootstrap JS-->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+<!--Disable alerts script-->
 <script type = "text/javascript">
     $(function(){
         $(".close").click(function(){
             $(".alert").alert('close');
+        });
+    });
+</script>
+
+<!--Copy row contents from Products to update form-->
+<script type="text/javascript">
+
+   $(document).ready(function () {
+       $("#productsTable tbody").on('click', 'tr', function() {
+
+           //get row contents into an array
+           let rowData = $(this).children("td").map(function () {
+               return $(this).text();
+           }).get();
+           $("#updateId").val(rowData[0]);
+           $("#updateDescription").val(rowData[1]);
+           $("#updateExpiration").val(rowData[2]);
+           $("#updateAmount").val(rowData[3]);
+           $("#updateLocation").val(rowData[4]);
+
+       });
+   });
+</script>
+
+<!--Copy row contents from Out of Stock to update form-->
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#outOfStockTable tbody").on('click', 'tr', function() {
+
+            //get row contents into an array
+            let rowData = $(this).children("td").map(function () {
+                return $(this).text();
+            }).get();
+            $("#updateId").val(rowData[0]);
+            $("#updateDescription").val(rowData[1]);
+            $("#updateExpiration").val(rowData[2]);
+            $("#updateAmount").val(rowData[3]);
+            $("#updateLocation").val(rowData[4]);
+
         });
     });
 </script>

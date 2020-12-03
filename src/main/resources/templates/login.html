@@ -11,6 +11,29 @@
 </head>
 <body>
 
+<style>
+    @import url(https://fonts.googleapis.com/css?family=Varela+Round);
+    body{
+        background-color: #343a40;
+        font-family: "Varela Round", sans-serif;
+        color: #F6B352;
+    }
+    .btn {
+        background: #F6B352;
+        color: white;
+        border-radius: 5px;
+        box-shadow: rgba(0,0,0,0.9);
+        transition: all 200ms ease-in-out;
+        text-decoration: none;
+
+    }
+    .btn:hover{
+        background: #F68657;
+        color:white;
+    }
+
+</style>
+
 <!--Header-->
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -63,7 +86,7 @@
                     <div class="row">
                         <div class="col-sm-6 col-sm-offset-3">
                             <input type="submit" name="login-submit" id="login-submit"
-                                   class="form-control btn btn-primary" value="Log In" />
+                                   class="form-control btn" value="Log In" />
                         </div>
                     </div>
                 </div>
