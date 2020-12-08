@@ -9,10 +9,6 @@ repositories {
 }
 
 mainClassName = 'ax.ha.laboration2.InventoryAwsApp'
-group = 'ax.ha.laboration2.aws'
-version = '1.0'
-sourceCompatibility = '11'
-version=1.0
 
 dependencies {
     compile 'software.amazon.awscdk:core:1.66.0'
@@ -35,21 +31,22 @@ task synth(type: Exec) {
     }
 }
 
-task deploy(type: Exec) {
-    group = "CDK"
-    if (System.properties['os.name'].toLowerCase().contains('windows')) {
-        commandLine 'cmd', '/c', 'cdk deploy'
-    } else {
-        commandLine 'cdk deploy'
-    }
-}
-
-
 task destroy(type: Exec) {
     group = "CDK"
     if (System.properties['os.name'].toLowerCase().contains('windows')) {
         commandLine 'cmd', '/c', 'cdk destroy * --force'
     } else {
         commandLine 'cdk synth'
+    }
+}
+
+task deploy(type: Exec) {
+    group = "CDK"
+    environment "APPLICATION_JAR_PATH", "$rootDir/inventory/build/libs/inventory" + version + ".jar"
+
+    if (System.properties['os.name'].toLowerCase().contains('windows')) {
+        commandLine 'cmd', '/c', 'cdk deploy * --require-approval=never'
+    } else {
+        commandLine 'cdk deploy'
     }
 }

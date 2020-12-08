@@ -18,6 +18,16 @@ repositories {
     mavenCentral()
 }
 
+subprojects {
+    version = '0.0.1-SNAPSHOT'
+    group = 'ax.ha.laboration2'
+    sourceCompatibility = '11'
+
+    repositories {
+        mavenCentral()
+    }
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
