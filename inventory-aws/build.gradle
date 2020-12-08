@@ -1,0 +1,55 @@
+
+plugins {
+    id 'java'
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+mainClassName = 'ax.ha.laboration2.InventoryAwsApp'
+group = 'ax.ha.laboration2.aws'
+version = '1.0'
+sourceCompatibility = '11'
+version=1.0
+
+dependencies {
+    compile 'software.amazon.awscdk:core:1.66.0'
+    compile 'software.amazon.awscdk:s3:1.66.0'
+
+    compile 'software.amazon.awscdk:elasticbeanstalk:1.66.0'
+    compile 'software.amazon.awscdk:rds:1.66.0'
+    compile 'software.amazon.awscdk:s3:1.66.0'
+    compile 'software.amazon.awscdk:route53:1.66.0'
+
+    compile group: 'software.amazon.awssdk', name: 's3', version: '2.15.2'
+}
+
+task synth(type: Exec) {
+    group = "CDK"
+    if (System.properties['os.name'].toLowerCase().contains('windows')) {
+        commandLine 'cmd', '/c', 'cdk synth'
+    } else {
+        commandLine 'cdk synth'
+    }
+}
+
+task deploy(type: Exec) {
+    group = "CDK"
+    if (System.properties['os.name'].toLowerCase().contains('windows')) {
+        commandLine 'cmd', '/c', 'cdk deploy'
+    } else {
+        commandLine 'cdk deploy'
+    }
+}
+
+
+task destroy(type: Exec) {
+    group = "CDK"
+    if (System.properties['os.name'].toLowerCase().contains('windows')) {
+        commandLine 'cmd', '/c', 'cdk destroy * --force'
+    } else {
+        commandLine 'cdk synth'
+    }
+}
