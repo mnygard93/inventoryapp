@@ -8,7 +8,7 @@ repositories {
     mavenCentral()
 }
 
-mainClassName = 'ax.ha.laboration2.InventoryAwsApp'
+mainClassName = 'ax.ha.laboration2.aws.InventoryAwsApp'
 
 dependencies {
     compile 'software.amazon.awscdk:core:1.66.0'
@@ -42,7 +42,7 @@ task destroy(type: Exec) {
 
 task deploy(type: Exec) {
     group = "CDK"
-    environment "APPLICATION_JAR_PATH", "$rootDir/inventory/build/libs/inventory" + version + ".jar"
+    environment "APPLICATION_JAR_PATH", "$rootDir/build/libs/inventory-" + version + ".jar"
 
     if (System.properties['os.name'].toLowerCase().contains('windows')) {
         commandLine 'cmd', '/c', 'cdk deploy * --require-approval=never'
