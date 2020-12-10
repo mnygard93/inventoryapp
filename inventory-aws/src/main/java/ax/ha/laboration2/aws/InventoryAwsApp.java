@@ -19,7 +19,7 @@ public final class InventoryAwsApp {
             s3BucketKey = new FileUploadService().uploadFileToS3(GROUP_NAME, System.getenv("APPLICATION_JAR_PATH"));
         }
         else {
-            s3BucketKey = "inventory-0.0.1-SNAPSHOT.jar";
+            s3BucketKey = "inventory-0.0.2-SNAPSHOT.jar";
         }
 
         final ApplicationStack applicationStack = new ApplicationStack(app, new StackProps.Builder()

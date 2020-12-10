@@ -19,7 +19,7 @@ repositories {
 }
 
 subprojects {
-    version = '0.0.1-SNAPSHOT'
+    version = '0.0.2-SNAPSHOT'
     group = 'ax.ha.laboration2'
     sourceCompatibility = '11'
 
