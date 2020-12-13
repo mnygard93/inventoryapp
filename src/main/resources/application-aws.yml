@@ -2,7 +2,7 @@ app:
   datasource:
     jdbc:url: jdbc:postgresql://inventory-1.chbvabsbak05.eu-north-1.rds.amazonaws.com:5432/inventorydb
     username: postgres
-    password: postgres12345
+    password:
 
 mybatis:
   config-location: classpath:mybatis-config.xml
@@ -13,7 +13,7 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: hainventoryapp@gmail.com
-    password: fjqciujtksfemikp
+    password:
     properties:
       mail:
         smtp:

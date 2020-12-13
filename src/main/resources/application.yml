@@ -2,7 +2,7 @@ app:
   datasource:
     jdbc-url: jdbc:postgresql://localhost:5432/inventorydb
     username: postgres
-    password: password
+    password:
     pool-size: 30
 
 mybatis:
@@ -14,7 +14,7 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: hainventoryapp@gmail.com
-    password: fjqciujtksfemikp
+    password:
     properties:
       mail:
         smtp:

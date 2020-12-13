@@ -153,7 +153,8 @@
                             <div th:if="${product.getAmount() > 0}" class="productSummary">
                                 <td th:text="${product.getId()}"></td>
                                 <td th:text="${product.getDescription()}"></td>
-                                <td th:if="${product.getExpirationDate() != null}" th:text="${#dates.format(product.getExpirationDate(), 'dd-MM-yyyy')}"></td>
+                                <td th:if="${product.getExpirationDate() != null}"
+                                    th:text="${#dates.format(product.getExpirationDate(), 'dd-MM-yyyy')}"></td>
                                 <td th:if="${product.getExpirationDate() == null}" th:text="#{title.empty}"></td>
                                 <td th:text="${product.getAmount()}"></td>
                                 <td th:text="${product.getLocation()}"></td>
