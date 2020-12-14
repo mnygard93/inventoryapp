@@ -10,10 +10,8 @@ mybatis:
 
 spring:
   mail:
-    protocol: smtp
-    host: smtp.gmail.com
-    port: 587
-    username: hainventoryapp@gmail.com
+    protocol:
+    username:
     password:
     properties:
       mail:
